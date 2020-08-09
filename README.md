@@ -189,6 +189,25 @@ pd.DataFrame(json.loads(requests.post('http://192.168.2.124:8031/factor/submit',
   </tbody>
 </table>
 
+### pandas 接入示例
+```python
+import QUANTAXIS as QA
+block = QA.QA_fetch_stock_block_adv().get_block('上证50')
+data = QA.QA_fetch_stock_day_adv(block.code, '2016-01-01', '2019-11-10').pivot('close')
+
+dp = data.dropna(axis=1).bfill().apply(lambda x: x/x.sum(), axis=1)
+dp.index = dp.index.map(lambda x: str(x)[0:10])
+dp = dp.applymap(lambda x: round(x -0.001, 3))
+
+requests.post('http://192.168.2.124:8031/factor/submit', 
+                                      json={"codelist":dp.columns.tolist(), 
+                                            "start":dp.index.map(lambda x: str(x)[0:10])[0], 
+                                            "end": dp.index.map(lambda x: str(x)[0:10])[-1], 
+                                            "init_cash": 1000000000.0, 
+                                            "weights":dp.to_dict(orient='index')}).text
+```
+
+
 首先需要注意的是本模式是等市值(动态市值)的调仓模式
 
 
