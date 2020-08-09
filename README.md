@@ -2,27 +2,190 @@
 factor-rs
 
 
-```python
-import requests
-requests.post('http://127.0.0.1:8031/factor/submit', json={"codelist": ["000001", "000002"], "start": "2018-08-22", "end": "2018-08-28", "init_cash": 100000.0, "weights": {
+多因子权重测试微服务:
+
+POST: http://127.0.0.1:8031/factor/submit
+
+headers: 
+
+Content-Type: application/json
+
+```json
+{"codelist": ["000001", "000002"], "start": "2018-08-22", "end": "2018-08-28", "init_cash": 100000.0, "weights": {
     "2018-08-22":{"000001":0.2, "000002": 0.8},
     "2018-08-23":{"000001":0.4, "000002": 0.6},
     "2018-08-24": {"000001":0.6, "000002": 0.4},
     "2018-08-27": {"000001":0.2, "000002": 0.8},
     "2018-08-28": {"000001":0.8, "000002": 0.2}
-}}).text
+}}
+```
+    
+### python 代码
+```python
+import requests
+import json
+import pandas as pd
+pd.DataFrame(json.loads(requests.post('http://192.168.2.124:8031/factor/submit', json={"codelist": ["000001", "000002"], "start": "2018-08-22", "end": "2018-08-28", "init_cash": 100000.0, "weights": {
+    "2018-08-22":{"000001":0.2, "000002": 0.8},
+    "2018-08-23":{"000001":0.4, "000002": 0.6},
+    "2018-08-24": {"000001":0.6, "000002": 0.4},
+    "2018-08-27": {"000001":0.2, "000002": 0.8},
+    "2018-08-28": {"000001":0.8, "000002": 0.2}
+}}).text))
 
-#RETURN
-'[{"code":"000001","amount":2000.0,"price":9.24,"datetime":"2018-08-22","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":4.62,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000002","amount":3200.0,"price":23.91,"datetime":"2018-08-22","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":19.128,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000002","amount":700.0,"price":23.0,"datetime":"2018-08-23","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":4.025,"tax":16.1,"message":"","frozen":0.0,"direction":-1},{"code":"000001","amount":2000.0,"price":9.3,"datetime":"2018-08-23","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":4.65,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000002","amount":800.0,"price":22.66,"datetime":"2018-08-24","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":4.532,"tax":18.128,"message":"","frozen":0.0,"direction":-1},{"code":"000001","amount":2100.0,"price":9.31,"datetime":"2018-08-24","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":4.8877500000000005,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000001","amount":4100.0,"price":10.02,"datetime":"2018-08-27","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":10.2705,"tax":41.082,"message":"","frozen":0.0,"direction":-1},{"code":"000002","amount":1700.0,"price":22.98,"datetime":"2018-08-27","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":9.7665,"tax":0.0,"message":"","frozen":0.0,"direction":1}]'
 ```
 
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>account_cookie</th>
+      <th>amount</th>
+      <th>code</th>
+      <th>commission</th>
+      <th>datetime</th>
+      <th>direction</th>
+      <th>frozen</th>
+      <th>message</th>
+      <th>order_id</th>
+      <th>price</th>
+      <th>realorder_id</th>
+      <th>tax</th>
+      <th>trade_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>model</td>
+      <td>2000.0</td>
+      <td>000001</td>
+      <td>4.62000</td>
+      <td>2018-08-22</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>9.24</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>0.000</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>model</td>
+      <td>3200.0</td>
+      <td>000002</td>
+      <td>19.12800</td>
+      <td>2018-08-22</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>23.91</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>0.000</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>model</td>
+      <td>700.0</td>
+      <td>000002</td>
+      <td>4.02500</td>
+      <td>2018-08-23</td>
+      <td>-1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>23.00</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>16.100</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>model</td>
+      <td>2000.0</td>
+      <td>000001</td>
+      <td>4.65000</td>
+      <td>2018-08-23</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>9.30</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>0.000</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>model</td>
+      <td>800.0</td>
+      <td>000002</td>
+      <td>4.53200</td>
+      <td>2018-08-24</td>
+      <td>-1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>22.66</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>18.128</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>model</td>
+      <td>2100.0</td>
+      <td>000001</td>
+      <td>4.88775</td>
+      <td>2018-08-24</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>9.31</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>0.000</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>model</td>
+      <td>4100.0</td>
+      <td>000001</td>
+      <td>10.27050</td>
+      <td>2018-08-27</td>
+      <td>-1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>10.02</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+      <td>41.082</td>
+      <td>f3b4958c-52a1-11e7-8001-010203040506</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>model</td>
+      <td>1700.0</td>
+      <td>000002</td>
+      <td>9.76650</td>
+      <td>2018-08-27</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td></td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>22.98</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+      <td>0.000</td>
+      <td>f3b4958c-52a1-11e7-8002-010203040506</td>
+    </tr>
+  </tbody>
+</table>
 
-多因子权重测试微服务:
-
-- [ip:port]/factor/submit
-    params:
-    
-    
 首先需要注意的是本模式是等市值(动态市值)的调仓模式
 
 
