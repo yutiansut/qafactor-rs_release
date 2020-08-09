@@ -1,8 +1,8 @@
-# qafactor-rs
+# qafactor-rs   多因子权重测试微服务:
+
 factor-rs
 
-
-多因子权重测试微服务:
+![image.png](http://pic.yutiansut.com/FmrONcJhrY-qigeuMrb2cQ4H5EhC)
 
 POST: http://127.0.0.1:8031/factor/submit
 
@@ -20,8 +20,7 @@ Content-Type: application/json
 }}
 ```
     
-![image.png](http://pic.yutiansut.com/Fn8-duSazzgkrffwUyp5UryRq6Al)
-    
+
     
 ### python 代码
 ```python
