@@ -2,6 +2,21 @@
 factor-rs
 
 
+```python
+import requests
+requests.post('http://127.0.0.1:8031/factor/submit', json={"codelist": ["000001", "000002"], "start": "2018-08-22", "end": "2018-08-28", "init_cash": 100000.0, "weights": {
+    "2018-08-22":{"000001":0.2, "000002": 0.8},
+    "2018-08-23":{"000001":0.4, "000002": 0.6},
+    "2018-08-24": {"000001":0.6, "000002": 0.4},
+    "2018-08-27": {"000001":0.2, "000002": 0.8},
+    "2018-08-28": {"000001":0.8, "000002": 0.2}
+}}).text
+
+RETURN
+'[{"code":"000001","amount":2000.0,"price":9.24,"datetime":"2018-08-22","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":4.62,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000002","amount":3200.0,"price":23.91,"datetime":"2018-08-22","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":19.128,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000002","amount":700.0,"price":23.0,"datetime":"2018-08-23","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":4.025,"tax":16.1,"message":"","frozen":0.0,"direction":-1},{"code":"000001","amount":2000.0,"price":9.3,"datetime":"2018-08-23","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":4.65,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000002","amount":800.0,"price":22.66,"datetime":"2018-08-24","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":4.532,"tax":18.128,"message":"","frozen":0.0,"direction":-1},{"code":"000001","amount":2100.0,"price":9.31,"datetime":"2018-08-24","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":4.8877500000000005,"tax":0.0,"message":"","frozen":0.0,"direction":1},{"code":"000001","amount":4100.0,"price":10.02,"datetime":"2018-08-27","order_id":"f3b4958c-52a1-11e7-8001-010203040506","trade_id":"f3b4958c-52a1-11e7-8001-010203040506","realorder_id":"f3b4958c-52a1-11e7-8001-010203040506","account_cookie":"model","commission":10.2705,"tax":41.082,"message":"","frozen":0.0,"direction":-1},{"code":"000002","amount":1700.0,"price":22.98,"datetime":"2018-08-27","order_id":"f3b4958c-52a1-11e7-8002-010203040506","trade_id":"f3b4958c-52a1-11e7-8002-010203040506","realorder_id":"f3b4958c-52a1-11e7-8002-010203040506","account_cookie":"model","commission":9.7665,"tax":0.0,"message":"","frozen":0.0,"direction":1}]'
+```
+
+
 多因子权重测试微服务:
 
 - [ip:port]/factor/submit
