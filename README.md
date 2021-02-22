@@ -4,7 +4,7 @@ factor-rs
 
 >> 除了数据获取以外, 毫秒级的账户撮合以及成交撮合
 
-![image.png](http://pic.yutiansut.com/FmrONcJhrY-qigeuMrb2cQ4H5EhC)
+![image.png](http://picx.gulizhu.com/FmrONcJhrY-qigeuMrb2cQ4H5EhC)
 
 POST: http://127.0.0.1:8031/factor/submit
 
